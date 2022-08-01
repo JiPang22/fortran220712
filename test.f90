@@ -1,31 +1,29 @@
-program josephson
-implicit none
-complex j
-integer i,imax
-real dt, e, har, v, ph, dph, ic,o,a,b
-imax=100
-dt=0.01
-e=1.6e-19
-har=1.e-34
-v=1.
-ic=1.
-ph=1.
-j=(0,1)
-a = cos(j*ph)
-b = sin(j*ph)
-o = sqrt(a**2 +b**2)
-open(1,file='aa')
-open(2,file='bb')
-open(3,file='cc')
-do i=0,imax
-write(1,*) i*dt, ph
-write(2,*) ph, o
-write(3,*) a,b
-write(*,*) a,b
-a = cos(j*ph)
-b = sin(j*ph)
+program test
 
-dph=2*e*v/har
-ph=ph+dph*dt
+implicit none
+
+integer*8 j,k ! loop count
+
+real*8 dt,ic,v0,sumi,flux ! ic is criticalm, flux is quantum magnetic flux
+
+dt=1.e-3;flux=2.e-15;ic=50.e-6;v0=1.e-3;sumi=0.
+
+
+open(1,file='plot')
+open(2,file='plot2')
+
+do k = -10,10 ! k is voltege loop count
+
+do j=0,int(1.e14*flux/(v0*k*dt)) ! j is time loop count
+
+sumi=sumi+dt*(ic*sin(1.07+6.28*j*v0*k*dt))**2 ! initial phase difference is pi/2
+
 enddo
+
+write(1,*) v0*k,sqrt(sumi/(1.e14*flux/(v0*k))) ! rms current
+
+sumi=0.
+
+enddo
+
 end
