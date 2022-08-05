@@ -15,9 +15,9 @@ dom1=-dom2*m2*l2*cos(th1-th2)/((m1+m2)*l1)-m2*l2*om2**2*sin(th1-th2/((m1+m2)*l1)
 dom2=-dom1*cos(th1-th2)+l1*om1**2*sin(th1-th2)/l2-g*sin(th2)/l2
 dth1=om1+dom1*dt
 dth2=om2+dom2*dt
-write(1,*) t,th2
+write(1,*) t,th1
 write(2,*) t,dom1
-write(3,*) th2,om2
+write(3,*) th1,om1
 !if (mod(i,100000) .eq. 0 ) then
 !write(3,*) ''
 !endif
@@ -27,8 +27,9 @@ th1=th1+dth1*dt
 th2=th2+dth2*dt
 
 enddo
-write(3,*) ''
+write(1,*) ''
 write(2,*) ''
+write(3,*) ''
 do i=0,1000
 t=i*dt
 dom1=-dom2*m2*l2*cos(th1-th2)/((m1+m2)*l1)-m2*l2*om2**2*sin(th1-th2/((m1+m2)*l1))-g*sin(th1)/l1
@@ -37,7 +38,7 @@ dth1=om1+dom1*dt
 dth2=om2+dom2*dt
 write(1,*) t,th2
 write(2,*) t,dom2
-write(3,*) th1,om1
+write(3,*) th2,om2
 !if (mod(i,100000) .eq. 0 ) then
 !write(3,*) ''
 !endif
