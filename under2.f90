@@ -1,15 +1,14 @@
-program underdynamic
+program josephson_dynamic
 implicit none
-integer*4 i,j
+integer*4 k,j
 real*4 tau,dtau,ph,dph,om,dom,eta,beta
-tau=0.;dtau=1.e-2;ph=1.;om=1.;eta=1.5;beta=10.
 open(1,file='aa')
-do j=0,10
-do i=0,2000
-write(1,*) tau,om
+do j=0,3
+tau=0.;dtau=1.e-2;ph=1.;om=1.;eta=0.3*j;beta=4.
+do k=0,12500
+write(1,*) k*dtau,om
 dom=eta/beta -sin(ph)/beta -om/beta
 dph=om
-tau=tau+i*dtau
 om=om+dom*dtau
 ph=ph+dph*dtau
 enddo
